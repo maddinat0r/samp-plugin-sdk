@@ -1,7 +1,7 @@
 //----------------------------------------------------------
 //
 //   SA-MP Multiplayer Modification For GTA:SA
-//   Copyright 2013 SA-MP Team, Dan
+//   Copyright 2014 SA-MP Team, Dan, maddinat0r
 //
 //----------------------------------------------------------
 
@@ -9,7 +9,9 @@
 
 //----------------------------------------------------------
 
+#if defined __cplusplus
 #include <string>
+#endif
 
 //----------------------------------------------------------
 
@@ -37,8 +39,11 @@ extern int AMXAPI amx_PushAddress(AMX *amx, cell *address);
 extern void AMXAPI amx_Redirect(AMX *amx, char *from, ucell to, AMX_NATIVE *store);
 extern int AMXAPI amx_GetCString(AMX *amx, cell param, char *&dest);
 extern void AMXAPI amx_SetCString(AMX *amx, cell param, char *str, int len);
+
+#if defined __cplusplus
 extern std::string AMXAPI amx_GetCppString(AMX *amx, cell param);
-extern void AMXAPI amx_SetCppString(AMX *amx, cell param, std::string str, int len);
+extern void AMXAPI amx_SetCppString(AMX *amx, cell param, const std::string &str, size_t maxlen);
+#endif
 
 //----------------------------------------------------------
 // EOF

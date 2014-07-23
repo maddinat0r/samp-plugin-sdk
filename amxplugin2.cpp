@@ -1,7 +1,7 @@
 //----------------------------------------------------------
 //
 //   SA-MP Multiplayer Modification For GTA:SA
-//   Copyright 2013 SA-MP Team, Dan
+//   Copyright 2014 SA-MP Team, Dan, maddinat0r
 //
 //----------------------------------------------------------
 
@@ -18,7 +18,8 @@
 
 //----------------------------------------------------------
 
-int AMXAPI amx_PushAddress(AMX *amx, cell *address) {
+int AMXAPI amx_PushAddress(AMX *amx, cell *address) 
+{
 	AMX_HEADER *hdr;
 	unsigned char *data;
 	cell xaddr;
@@ -29,19 +30,24 @@ int AMXAPI amx_PushAddress(AMX *amx, cell *address) {
 	assert(hdr->magic == AMX_MAGIC);
 	data = (amx->data != NULL) ? amx->data : amx->base + (int) hdr->dat;
 	xaddr = (cell) ((unsigned char*) address-data);
-	if ((ucell) xaddr >= (ucell) amx->stp) {
+	if ((ucell) xaddr >= (ucell) amx->stp) 
+	{
 		return AMX_ERR_MEMACCESS;
 	}
 	return amx_Push(amx,xaddr);
 }
 
-void AMXAPI amx_Redirect(AMX *amx, char *from, ucell to, AMX_NATIVE *store) {
+void AMXAPI amx_Redirect(AMX *amx, char *from, ucell to, AMX_NATIVE *store) 
+{
 	AMX_HEADER *hdr = (AMX_HEADER*) amx->base;
 	AMX_FUNCSTUB *func;
-	for (int idx = 0, num = NUMENTRIES(hdr, natives, libraries); idx != num; ++idx) {
+	for (int idx = 0, num = NUMENTRIES(hdr, natives, libraries); idx != num; ++idx) 
+	{
 		func = GETENTRY(hdr, natives, idx);
-		if (!strcmp(from, GETENTRYNAME(hdr, func))) {
-			if (store) {
+		if (!strcmp(from, GETENTRYNAME(hdr, func))) 
+		{
+			if (store) 
+			{
 				*store = (AMX_NATIVE) func->address;
 			}
 			func->address = to;
@@ -50,13 +56,15 @@ void AMXAPI amx_Redirect(AMX *amx, char *from, ucell to, AMX_NATIVE *store) {
 	}
 }
 
-int AMXAPI amx_GetCString(AMX *amx, cell param, char *&dest) {
+int AMXAPI amx_GetCString(AMX *amx, cell param, char *&dest) 
+{
 	cell *ptr;
 	amx_GetAddr(amx, param, &ptr);
 	int len;
 	amx_StrLen(ptr, &len);
 	dest = (char*) malloc((len + 1) * sizeof(char));
-	if (dest != NULL) {
+	if (dest != NULL) 
+	{
 		amx_GetString(dest, ptr, 0, UNLIMITED);
 		dest[len] = 0;
 		return len;
@@ -64,26 +72,30 @@ int AMXAPI amx_GetCString(AMX *amx, cell param, char *&dest) {
 	return 0;
 }
 
-void AMXAPI amx_SetCString(AMX *amx, cell param, char *str, int len) {
+void AMXAPI amx_SetCString(AMX *amx, cell param, char *str, int len) 
+{
 	cell *dest;
 	amx_GetAddr(amx, param, &dest);
 	amx_SetString(dest, str, 0, 0, len);
 }
 
-std::string AMXAPI amx_GetCppString(AMX *amx, cell param) {
+#if defined __cplusplus
+
+std::string AMXAPI amx_GetCppString(AMX *amx, cell param) 
+{
 	char *tmp;
 	amx_StrParam(amx, param, tmp);
-	if (tmp != NULL) {
-		return tmp;
-	}
-	return "";
+	return (tmp != NULL) ? tmp : std::string();
 }
 
-void AMXAPI amx_SetCppString(AMX *amx, cell param, std::string str, int len) {
+void AMXAPI amx_SetCppString(AMX *amx, cell param, const std::string &str, size_t maxlen) 
+{
 	cell *dest;
 	amx_GetAddr(amx, param, &dest);
-	amx_SetString(dest, str.c_str(), 0, 0, len);
+	amx_SetString(dest, str.c_str(), 0, 0, maxlen);
 }
+
+#endif // __cplusplus
 
 //----------------------------------------------------------
 // EOF
