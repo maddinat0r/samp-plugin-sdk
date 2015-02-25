@@ -72,7 +72,7 @@ int AMXAPI amx_GetCString(AMX *amx, cell param, char *&dest)
 	return 0;
 }
 
-void AMXAPI amx_SetCString(AMX *amx, cell param, char *str, int len) 
+void AMXAPI amx_SetCString(AMX *amx, cell param, const char *str, int len) 
 {
 	cell *dest;
 	amx_GetAddr(amx, param, &dest);
