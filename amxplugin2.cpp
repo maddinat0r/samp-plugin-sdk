@@ -83,14 +83,21 @@ void AMXAPI amx_SetCString(AMX *amx, cell param, const char *str, int len)
 
 std::string AMXAPI amx_GetCppString(AMX *amx, cell param) 
 {
-	char *tmp;
-	amx_StrParam(amx, param, tmp);
-	return (tmp != NULL) ? tmp : std::string();
+	cell *addr = nullptr;
+	amx_GetAddr(amx, param, &addr);
+
+	int len = 0;
+	amx_StrLen(addr, &len);
+
+	std::string string(len, ' ');
+	amx_GetString(&string[0], addr, 0, len);
+
+	return string;
 }
 
 void AMXAPI amx_SetCppString(AMX *amx, cell param, const std::string &str, size_t maxlen) 
 {
-	cell *dest;
+	cell *dest = nullptr;
 	amx_GetAddr(amx, param, &dest);
 	amx_SetString(dest, str.c_str(), 0, 0, maxlen);
 }
