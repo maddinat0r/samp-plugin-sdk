@@ -90,7 +90,7 @@ std::string AMXAPI amx_GetCppString(AMX *amx, cell param)
 	amx_StrLen(addr, &len);
 
 	std::string string(len, ' ');
-	amx_GetString(&string[0], addr, 0, len);
+	amx_GetString(&string[0], addr, 0, len + 1);
 
 	return string;
 }
