@@ -45,7 +45,7 @@
 	 * here, these types are probably undefined.
 	 */
 	#if defined __MACH__
-	  #include <ppc/types.h>
+	  #include <inttypes.h>
 	  typedef unsigned short int  uint16_t;
 	  typedef unsigned long int   uint32_t;
 	#elif defined __FreeBSD__
