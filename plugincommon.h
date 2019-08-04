@@ -54,13 +54,18 @@ enum SUPPORTS_FLAGS
 
 enum PLUGIN_DATA_TYPE
 {
-	// For some debugging
-	PLUGIN_DATA_LOGPRINTF		= 0x00,	// void (*logprintf)(char* format, ...)
+    // For some debugging
+    PLUGIN_DATA_LOGPRINTF       = 0x00, // void (*logprintf)(char* format, ...)
+    PLUGIN_DATA_NETGAME         = 0xE1, // CNetGame* GetNetGame();
+    PLUGIN_DATA_RAKSERVER       = 0xE2, // RakServerInterface* PluginGetRakServer()
+    PLUGIN_DATA_LOADFSCRIPT     = 0xE3, // bool LoadFilterscriptFromMemory(char* pFileName, char* pFileData)
+    PLUGIN_DATA_UNLOADFSCRIPT   = 0xE5, // bool UnloadFilterScript(char* pFileName)
+    PLUGIN_DATA_CONSOLE         = 0xE4, // CConsole* GetConsole();	
 
-	// AMX
-	PLUGIN_DATA_AMX_EXPORTS		= 0x10,	// void* AmxFunctionTable[]    (see PLUGIN_AMX_EXPORT)
-	PLUGIN_DATA_CALLPUBLIC_FS	= 0x11, // int (*AmxCallPublicFilterScript)(char *szFunctionName)
-	PLUGIN_DATA_CALLPUBLIC_GM	= 0x12, // int (*AmxCallPublicGameMode)(char *szFunctionName)
+    // AMX
+    PLUGIN_DATA_AMX_EXPORTS     = 0x10, // void* AmxFunctionTable[]    (see PLUGIN_AMX_EXPORT)
+    PLUGIN_DATA_CALLPUBLIC_FS   = 0x11, // int (*AmxCallPublicFilterScript)(char *szFunctionName)
+    PLUGIN_DATA_CALLPUBLIC_GM   = 0x12, // int (*AmxCallPublicGameMode)(char *szFunctionName)
 
 };
 
