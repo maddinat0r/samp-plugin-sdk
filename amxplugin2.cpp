@@ -5,8 +5,8 @@
 //
 //----------------------------------------------------------
 
-#include <cstring>
-#include <cstdlib>
+#include <string.h>
+#include <stdlib.h>
 
 //----------------------------------------------------------
 
@@ -56,7 +56,11 @@ void AMXAPI amx_Redirect(AMX *amx, char *from, ucell to, AMX_NATIVE *store)
 	}
 }
 
-int AMXAPI amx_GetCString(AMX *amx, cell param, char *&dest) 
+#ifdef __cplusplus
+int AMXAPI amx_GetCString(AMX *amx, cell param, char *&dest)
+#else
+int AMXAPI amx_GetCString(AMX *amx, cell param, char *dest)
+#endif
 {
 	cell *ptr;
 	amx_GetAddr(amx, param, &ptr);
