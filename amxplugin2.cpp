@@ -56,7 +56,11 @@ void AMXAPI amx_Redirect(AMX *amx, char *from, ucell to, AMX_NATIVE *store)
 	}
 }
 
-int AMXAPI amx_GetCString(AMX *amx, cell param, char *&dest) 
+#ifdef __cplusplus
+int AMXAPI amx_GetCString(AMX *amx, cell param, char *&dest)
+#else
+int AMXAPI amx_GetCString(AMX *amx, cell param, char *dest)
+#endif
 {
 	cell *ptr;
 	amx_GetAddr(amx, param, &ptr);
@@ -65,7 +69,11 @@ int AMXAPI amx_GetCString(AMX *amx, cell param, char *&dest)
 	dest = (char*) malloc((len + 1) * sizeof(char));
 	if (dest != NULL) 
 	{
+		#ifdef __cplusplus
 		amx_GetString(dest, ptr, 0, UNLIMITED);
+		#else
+		amx_GetString(&dest, ptr, 0, UNLIMITED);
+		#endif
 		dest[len] = 0;
 		return len;
 	}
