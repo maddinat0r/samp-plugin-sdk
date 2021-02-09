@@ -37,7 +37,13 @@
 
 extern int AMXAPI amx_PushAddress(AMX *amx, cell *address);
 extern void AMXAPI amx_Redirect(AMX *amx, char *from, ucell to, AMX_NATIVE *store);
+
+#ifdef __cplusplus
 extern int AMXAPI amx_GetCString(AMX *amx, cell param, char *&dest);
+#else
+extern int AMXAPI amx_GetCString(AMX *amx, cell param, char *dest);
+#endif
+
 extern int AMXAPI amx_SetCString(AMX *amx, cell param, const char *str, int len);
 
 #if defined __cplusplus
